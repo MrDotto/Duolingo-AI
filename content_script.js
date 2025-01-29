@@ -174,6 +174,8 @@ if (!window.scriptLoaded) {
             });
         }
 
+        console.log(message.result)
+
         if (!message.result) {
             return false;
         }

@@ -30,7 +30,8 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
             headers: {
                 "accept": "application/json",
                 "content-type": "application/json",
-                "authorization": "Bearer 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"
+                "authorization": "Bearer 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",
+                "Access-Control-Allow-Origin": null,
             },
             method: "POST",
             body: JSON.stringify({
@@ -48,7 +49,8 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         const result = await apiResponse.json();
 
         if (result.choices && result.choices[0].message && result.choices[0].message.content) {
-            const responseContent = result.choices[0].message.content.replace(/<\/?think>.*?<\/think>/g, '');
+            console.log(result)
+            const responseContent = decodeURI(result.choices[0].message.content).replace(/<\/?think\b[^>]*>[\s\S]*?<\/think>/g, '').trim();
 
             chrome.tabs.sendMessage(sender.tab.id, { request, result: responseContent });
         } else {
