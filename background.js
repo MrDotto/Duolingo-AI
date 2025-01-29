@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
             },
             method: "POST",
             body: JSON.stringify({
-                model: "llama-3.3-70b-versatile",
+                model: "deepseek-r1-distill-llama-70b",
                 messages: [
                     { role: "system", content: "Follow instructions perfectly." },
                     { role: "user", content: request.AIreq }
@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         const result = await apiResponse.json();
 
         if (result.choices && result.choices[0].message && result.choices[0].message.content) {
-            const responseContent = result.choices[0].message.content;
+            const responseContent = result.choices[0].message.content.replace(/<\/?think>.*?<\/think>/g, '');
 
             chrome.tabs.sendMessage(sender.tab.id, { request, result: responseContent });
         } else {
