@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         btn.innerHTML = "Completed!";
         btn.style.background = "#4e8056";
     } else if (message.action == "reset") {
-        btn.innerHTML = "Ai Fill";
+        btn.innerHTML = "Ai Translate";
         btn.style.background = "";
     }
 });
